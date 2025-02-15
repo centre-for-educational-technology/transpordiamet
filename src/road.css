@@ -1,32 +1,27 @@
 /*Drawing a road on the screen using the div from road.tsx*/
 .road {
-    position: absolute;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30vh;
     top: 55%;
     z-index: -1;
-    width: 100%;
+    width: 100vw;
     height: 100px;
     background-color: gray;
+    overflow: hidden;
 }
 /*Adding lines on the road*/
-.road:before{
-    content: '';
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+.lines{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
     left: 0;
-    width: 100%;
+    width: 150vw;
     height: 10px;
     background: linear-gradient(90deg, #fff 0%, #fff 70%, gray 70%, gray 100%);
     background-size: 120px;
-    animation: animate 0.5s linear infinite;
 }
 
-/*Animating the road*/
-/*@keyframes animate{
-    0%{
-        background-position: 0px;
-    }
-    100%{
-        background-position: -120px;
-    }
-}*/
+
+
