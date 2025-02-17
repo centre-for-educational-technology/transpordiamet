@@ -6,16 +6,34 @@ import { Road } from "./road";
 import { BrakeButton } from "./buttons/brake/brakeBtn";
 import { SpeedButton } from "./buttons/speed/speedBtn";
 
-//Adding the road.tsx div
 const App = () => {
   const [drive, setDrive] = useState(false);
   const [brake, setBrake] = useState(false);
-  const [speed, setSpeed] = useState(30);
+  const [speed, setSpeed] = useState(0);
+  const [activeButton, setActiveButton] = useState(null);
+
+  //change the color of chosen speed button
+  const handleSpeedChange = (newSpeed: any) => {
+    setSpeed(newSpeed);
+    setActiveButton(newSpeed);
+  };
+  //change the color of chosen speed button
+  const buttonStyle = (speed: any) => ({
+    backgroundColor: activeButton === speed ? "#b6b6b6" : "#929292",
+  });
 
   return (
     <div>
-      <SpeedButton name={"30"} onClick={() => setSpeed(30)}></SpeedButton>
-      <SpeedButton name={"100"} onClick={() => setSpeed(100)}></SpeedButton>
+      <SpeedButton
+        name={"30"}
+        style={buttonStyle(30)}
+        onClick={() => handleSpeedChange(30)}
+      ></SpeedButton>
+      <SpeedButton
+        name={"100"}
+        style={buttonStyle(100)}
+        onClick={() => handleSpeedChange(100)}
+      ></SpeedButton>
       <Road drive={drive} speed={speed} brake={brake} />
       {drive ? (
         <BrakeButton
