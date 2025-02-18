@@ -36,10 +36,10 @@ export const Road = (props: any) => {
       scope.current,
       {
         //the road is moving horizontally
-        x: [x.get(), -120], 
+        x: [x.get(), -120],
       },
       //animation configuration
-      startTrans  
+      startTrans
     );
   };
 
@@ -49,7 +49,7 @@ export const Road = (props: any) => {
     await animate(
       scope.current,
       //the animation stops by slowing down
-      { x: [scope.current, x.get() - 120] }, 
+      { x: [scope.current, x.get() - 120] },
       stopTrans
     );
   };
@@ -57,7 +57,8 @@ export const Road = (props: any) => {
   useEffect(() => {
     //console.log("velo", x.get());
 
-    if (drive) {  //if drive variable is truthly, the startAnimation is called
+    if (drive) {
+      //if drive variable is truthly, the startAnimation is called
       startAnimation();
     }
     if (brake) {
@@ -66,10 +67,12 @@ export const Road = (props: any) => {
   }, [drive, brake]); //the effect runs only when these values change
 
   return (
-    <div key={"road"} className={`road `}>
-      <motion.div ref={scope} className={`lines`}></motion.div>
+    <div className="roadBody">
+      <div key={"road"} className={`road `}>
+        <motion.div ref={scope} className={`lines`}></motion.div>
 
-      {/* <motion.div ref={scope} className={`lines`} variants={variants} animate={animate ? 'start' : 'stop'}></motion.div> */}
+        {/* <motion.div ref={scope} className={`lines`} variants={variants} animate={animate ? 'start' : 'stop'}></motion.div> */}
+      </div>
     </div>
   );
 };
