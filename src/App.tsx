@@ -37,7 +37,7 @@ const App = () => {
           onClick={() => handleSpeedChange(100)}
         ></SpeedButton>
       </div>
-      <Road drive={drive} speed={speed} brake={brake} />
+      <Road drive={drive} speed={speed} brake={brake} setBrake={setBrake} setDrive={setDrive} />
       {drive ? (
         <BrakeButton
           name={"BRAKE"}
@@ -50,6 +50,7 @@ const App = () => {
       ) : (
         <StartButton
           name={"START"}
+          disabled={speed===0}
           className={"customButton"}
           onClick={() => {
             setDrive(true);

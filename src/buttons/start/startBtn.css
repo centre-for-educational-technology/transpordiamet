@@ -17,6 +17,16 @@
     text-align: center;
     box-shadow: 0 2px 4px rgb(34, 34, 34);
   }
+
+  .customButton.disabled{
+    background-color: dimgrey;
+    color: linen;
+    opacity: 1;
+  }
+
+  .customButton.disabled:hover{
+    background-color: dimgrey;
+  }
   
   .customButton:hover {
     background-color: #42A5F5; 

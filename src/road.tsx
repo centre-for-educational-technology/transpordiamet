@@ -1,77 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./road.css";
-import {
-  easeOut,
-  motion,
-  useAnimate,
-  EasingDefinition,
-  useMotionValue,
-} from "motion/react";
+import { motion } from "motion/react";
 
 export const Road = (props: any) => {
-  const { drive, brake, speed } = props;
+  const { drive, brake, speed: startSpeed, condition } = props;
 
-  const [scope, animate] = useAnimate();
+  const [speed, setSpeed] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [brakeFactor, setBrakeFactor] = useState(1);
+  const requestRef = useRef(0);
 
-  //road animation with Motion
-  const startTrans = {
-    repeat: Infinity,
-    duration: 10 / speed,
-    ease: "linear" as EasingDefinition,
-    repeatType: "loop" as any,
-  };
-
-  //road animation when braking with Motion
-  const stopTrans = {
-    duration: 2,
-    ease: easeOut,
-  };
-
-  const x = useMotionValue(0);
-
-  //road driving animation is waiting for the click of the "start" button
-  const startAnimation = async () => {
-    //async allows to use "await"
-    await animate(
-      scope.current,
-      {
-        //the road is moving horizontally
-        x: [x.get(), -120],
-      },
-      //animation configuration
-      startTrans
-    );
-  };
-
-  const stopAnimation = async () => {
-    //console.log(x.getPrevious());
-
-    await animate(
-      scope.current,
-      //the animation stops by slowing down
-      { x: [scope.current, x.get() - 120] },
-      stopTrans
-    );
+  console.log(Math.max(0, speed - 1 / brakeFactor))
+  const animate = () => {
+    if (drive) {
+      setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
+    }
+    if (brake) {
+      setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
+      setSpeed((prev) => Math.max(0, prev - 0.5 / brakeFactor));
+    }
+    requestRef.current = requestAnimationFrame(animate);
   };
 
   useEffect(() => {
-    //console.log("velo", x.get());
+    setSpeed(startSpeed);
+  }, [startSpeed]);
 
-    if (drive) {
-      //if drive variable is truthly, the startAnimation is called
-      startAnimation();
+  useEffect(() => {
+    switch (condition) {
+      case "dry":
+        setBrakeFactor(1);
+        break;
+      case "rain":
+        setBrakeFactor(1.5);
+        break;
+      case "snow":
+        setBrakeFactor(2);
+        break;
+      default:
+        break;
     }
-    if (brake) {
-      stopAnimation();
+  }, [condition]);
+
+  useEffect(() => {
+    if (speed > 0 || brake) {
+      requestRef.current = requestAnimationFrame(animate);
     }
-  }, [drive, brake]); //the effect runs only when these values change
+    return () => cancelAnimationFrame(requestRef.current);
+  }, [speed, condition, drive, brake]);
 
   return (
     <div className="roadBody">
       <div key={"road"} className={`road `}>
-        <motion.div ref={scope} className={`lines`}></motion.div>
-
-        {/* <motion.div ref={scope} className={`lines`} variants={variants} animate={animate ? 'start' : 'stop'}></motion.div> */}
+        <motion.div
+          animate={{ x: -position }}
+          transition={{ ease: "linear", duration: 0.1 }}
+          className="lines"
+        ></motion.div>
       </div>
     </div>
   );
