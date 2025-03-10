@@ -12,6 +12,7 @@ const App = () => {
   const [brake, setBrake] = useState(false);
   const [speed, setSpeed] = useState(0);
   const [activeButton, setActiveButton] = useState(null);
+  const [condition, setCondition] = useState(null)
 
   //change the color of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
@@ -37,7 +38,7 @@ const App = () => {
           onClick={() => handleSpeedChange(100)}
         ></SpeedButton>
       </div>
-      <Road drive={drive} speed={speed} brake={brake} setBrake={setBrake} setDrive={setDrive} />
+      <Road drive={drive} speed={speed} brake={brake} setBrake={setBrake} setDrive={setDrive} condition={condition} setCondition={setCondition}/>
       {drive ? (
         <BrakeButton
           name={"BRAKE"}

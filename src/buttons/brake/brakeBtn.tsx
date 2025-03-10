@@ -22,4 +22,3 @@ export const BrakeButton: React.FC<ButtonProps> = ({ name, onClick }) => {
     </AnimatePresence>
   );
 };
-
