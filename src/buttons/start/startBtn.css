@@ -1,33 +1,33 @@
 .customButton {
-    position: absolute;
-    left: 50%;
-    top: 80%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    padding: 0px;
-    height: 90px;
-    width: 90px;
-    line-height: 90px;      /*so the text is in the middle of the circle*/
-    background-color: #1E88E5; 
-    color: white;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.3s ease;
-    text-align: center;
-    box-shadow: 0 2px 4px rgb(34, 34, 34);
+  position: absolute;
+  left: 50%;
+  top: 80%; 
+  transform: translateX(-50%); 
+  padding: 0px;
+  height: 90px;
+  width: 90px;
+  line-height: 90px; /* So the text is in the middle of the circle */
+  background-color: #1E88E5; 
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  box-shadow: 0 2px 4px rgb(34, 34, 34);
   }
 
-  .customButton.disabled{
-    background-color: dimgrey;
-    color: linen;
-    opacity: 1;
-  }
+.customButton.disabled{
+  background-color: dimgrey;
+  color: linen;
+  opacity: 1;
+  cursor: default;
+}
 
-  .customButton.disabled:hover{
-    background-color: dimgrey;
-  }
-  
-  .customButton:hover {
-    background-color: #42A5F5; 
-  }
+.customButton.disabled:hover{
+  background-color: dimgrey;
+}
+
+.customButton:hover {
+  background-color: #42A5F5; 
+}

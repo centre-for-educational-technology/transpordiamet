@@ -3,6 +3,7 @@ body {
   padding: 0;
   /*display: flex;*/
   font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(#c5eafc, #66bde6);
 }
 
 /*:root {

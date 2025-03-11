@@ -1,6 +1,15 @@
 .conditionButton{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 20px;
+    cursor: pointer;
+    padding: 0px;
+    margin: 5px;
 }
+
+.conditionBtnFlex{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+  }

@@ -1,37 +1,37 @@
 import "./conditionBtn.css";
 import React from "react";
-//import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 
 interface ButtonProps {
-  className: string;
   icon: string;
   condition: string;
   isActive: boolean;
   onClick: any;
+  style: any;
 }
 
 export const ConditionButton: React.FC<ButtonProps> = ({
   icon,
   condition,
-  isActive,
   onClick,
+  style,
 }) => {
   return (
-    <button
-      className="conditionButton"
-      onClick={onClick}
-      style={{
-        border: "none",
-        background: "none",
-        cursor: "pointer",
-        opacity: isActive ? 1 : 0.6,
-      }}
-    >
-      <img
+    <AnimatePresence>
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }} //animation when button appears on the screen
+        onClick={onClick}
+        style={style}
+        className="conditionButton"
+        whileTap={{ scale: 0.95 }} //button clicking animation
+      >
+        <img
         src={icon}
         alt={condition}
         style={{ width: "90px", height: "90px" }}
       />
-    </button>
+      </motion.div>
+    </AnimatePresence>
   );
 };
