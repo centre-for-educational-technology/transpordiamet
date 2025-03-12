@@ -3,7 +3,7 @@ import "./App.css";
 import "./buttons/speed/speedBtn.css";
 
 import DryIcon from "./assets/dry.svg";
-//import RainIcon from "./assets/rain.svg";
+import RainIcon from "./assets/rain.svg";
 import SnowIcon from "./assets/snow.svg";
 
 import { StartButton } from "./buttons/start/startBtn";
@@ -85,6 +85,13 @@ const App = () => {
             condition="dry"
             isActive={condition === "dry"}
             onClick={() => handleConditionChange("dry")}
+            style={undefined}
+          />
+          <ConditionButton
+            icon={RainIcon}
+            condition="rain"
+            isActive={condition === "rain"}
+            onClick={() => handleConditionChange("rain")}
             style={undefined}
           />
           <ConditionButton
