@@ -1,21 +1,29 @@
-//import Popup from 'reactjs-popup';
+import React, { useState, useEffect } from "react";
+import "./popup.css";
 
-import React from "react";
+export const CustomPopup: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-interface PopupProps {
-  handleClose: () => void;
-  content: React.ReactNode;
-}
+  // Open the popup when the component mounts
+  useEffect(() => {
+    setIsOpen(true);
+  }, []);
 
-export const Popup: React.FC<PopupProps> = (props) => {
+  const closePopup = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <div className="popup-box">
-      <div className="box">
-        <span className="close-icon" onClick={props.handleClose}>
-          x
-        </span>
-        {props.content}
-      </div>
+    <div>
+      {isOpen && (
+        <div className="popup-overlay">
+          <div className="popup-content">
+            <h2>Tere tulemast!</h2>
+            <p>Enne startimist vali auto sõidukiirus ja ilmaolu.</p>
+            <button onClick={closePopup}>Sulge</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

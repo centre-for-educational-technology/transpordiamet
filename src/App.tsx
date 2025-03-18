@@ -11,7 +11,7 @@ import { Road } from "./road";
 import { BrakeButton } from "./buttons/brake/brakeBtn";
 import { SpeedButton } from "./buttons/speed/speedBtn";
 import { ConditionButton } from "./buttons/condition/conditionBtn";
-import { Popup } from "./popup";
+import { CustomPopup } from "./popup";
 
 const App = () => {
   const [drive, setDrive] = useState(false);
@@ -19,11 +19,6 @@ const App = () => {
   const [speed, setSpeed] = useState(0);
   const [activeButton, setActiveButton] = useState(null); //active speed button
   const [condition, setCondition] = useState<string | null>(null); //condition of the road
-  const [isOpen, setIsOpen] = useState(false); //pop-up
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
 
   //change the color of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
@@ -41,22 +36,7 @@ const App = () => {
 
   return (
     <div>
-      <div className="popup">
-        <input type="button" value="Open" onClick={togglePopup} />
-        {isOpen && (
-          <Popup
-            content={
-              <>
-                <b>design your popup</b>
-                <p>INFO2</p>
-                <button>test button</button>
-              </>
-            }
-            handleClose={togglePopup}
-          />
-        )}
-      </div>
-
+      <CustomPopup />
       <div className="speedBtnFlex">
         <SpeedButton
           name={"30"}

@@ -13,18 +13,16 @@
     z-index: -1;
     width: 90vw;
     position: absolute;
-    height: 180px;
+    height: 170px;
     background-color: gray;
     overflow: hidden;
 }
 /*Adding lines on the road*/
 .lines{
-    display: flex;
-    flex-direction: column;
-    align-self: center;
     position: absolute;
+    top: 40%;    
     width: 999999999vw;
-    height: 10px;
+    height: 8px;
     background: linear-gradient(90deg, #fff 0%, #fff 70%, gray 70%, gray 100%);
     background-size: 120px;
 }
