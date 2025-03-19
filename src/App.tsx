@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./App.css";
-import "./buttons/speed/speedBtn.css";
 
 import DryIcon from "./assets/dry.svg";
 import RainIcon from "./assets/rain.svg";
@@ -17,22 +16,30 @@ const App = () => {
   const [drive, setDrive] = useState(false);
   const [brake, setBrake] = useState(false);
   const [speed, setSpeed] = useState(0);
-  const [activeButton, setActiveButton] = useState(null); //active speed button
+  const [activeSpeedBtn, setActiveSpeedBtn] = useState(null); //active speed button
   const [condition, setCondition] = useState<string | null>(null); //condition of the road
+  const [activeConditionBtn, setActiveConditionBtn] = useState<string | null>(
+    null
+  ); //active condition button
 
-  //change the color of chosen speed button
+  //Change the opacity of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
     setSpeed(newSpeed);
-    setActiveButton(newSpeed);
+    setActiveSpeedBtn(newSpeed);
   };
-  //change the color of chosen speed button
-  const buttonStyle = (speed: any) => ({
-    backgroundColor: activeButton === speed ? "#cccccc" : "#f2f2f2",
+  //Change the opacity of chosen speed button
+  const speedBtnStyle = (speed: any) => ({
+    opacity: activeSpeedBtn === speed ? "1" : "0.75",
   });
-
+  //Change the opacity of chosen condition button
   const handleConditionChange = (newCondition: string) => {
     setCondition(newCondition);
+    setActiveConditionBtn(newCondition);
   };
+  //Change the opacity of chosen condition button
+  const conditionBtnStyle = (condition: string) => ({
+    opacity: activeConditionBtn === condition ? "1" : "0.75",
+  });
 
   return (
     <div>
@@ -40,16 +47,15 @@ const App = () => {
       <div className="speedBtnFlex">
         <SpeedButton
           name={"30"}
-          style={buttonStyle(30)}
+          style={speedBtnStyle(30)}
           onClick={() => handleSpeedChange(30)}
         ></SpeedButton>
         <SpeedButton
           name={"100"}
-          style={buttonStyle(100)}
+          style={speedBtnStyle(100)}
           onClick={() => handleSpeedChange(100)}
         ></SpeedButton>
       </div>
-
       <Road
         drive={drive}
         speed={speed}
@@ -61,7 +67,7 @@ const App = () => {
       />
       {drive ? (
         <BrakeButton
-          name={"BRAKE"}
+          name={"STOPP"}
           className={"customButton"}
           onClick={() => {
             setBrake(true);
@@ -87,21 +93,21 @@ const App = () => {
             condition="dry"
             isActive={condition === "dry"}
             onClick={() => handleConditionChange("dry")}
-            style={undefined}
+            style={conditionBtnStyle("dry")}
           />
           <ConditionButton
             icon={RainIcon}
             condition="rain"
             isActive={condition === "rain"}
             onClick={() => handleConditionChange("rain")}
-            style={undefined}
+            style={conditionBtnStyle("rain")}
           />
           <ConditionButton
             icon={SnowIcon}
             condition="snow"
             isActive={condition === "snow"}
             onClick={() => handleConditionChange("snow")}
-            style={undefined}
+            style={conditionBtnStyle("snow")}
           />
         </div>
       </div>

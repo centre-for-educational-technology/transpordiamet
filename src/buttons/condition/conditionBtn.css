@@ -2,10 +2,10 @@
     cursor: pointer;
     padding: 0px;
     margin: 5px;
-    border-radius: 50%;
-    /*background-color: rgba(255, 255, 255, 0.5);*/
+    border-radius: 50%;    
 }
 
+/*Condition button position using the div class in App.tsx*/
 .conditionBtnFlex{
     display: flex;
     flex-direction: row;
@@ -14,4 +14,4 @@
     top: 0;
     right: 0;
     margin: 10px;
-  }
+}
