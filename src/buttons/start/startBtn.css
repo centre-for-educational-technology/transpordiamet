@@ -1,11 +1,12 @@
 .customButton {
-  position: absolute;
-  left: 50%;
-  top: 80%; 
-  transform: translateX(-50%); 
+display: flex;
+  justify-content: center;
+  align-items: center;
+
   padding: 0px;
   height: 90px;
   width: 90px;
+  margin-bottom: 30px;
   line-height: 90px; /* So the text is in the middle of the circle */
   background-color: #1E88E5; 
   color: white;

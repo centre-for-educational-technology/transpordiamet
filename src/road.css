@@ -1,9 +1,9 @@
 .roadBody { 
   display: flex;
   justify-content: center; 
-  align-items: center; 
-  min-height: 90vh; 
-  margin: 0; 
+  width: 100%;
+  height: 220px;
+  align-items: end;
 }
 /*Drawing a road on the screen*/
 .road {

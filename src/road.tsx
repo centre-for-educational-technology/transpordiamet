@@ -74,7 +74,7 @@ export const Road = (props: any) => {
     }
   };
 
-  console.log(Math.max(0, speed - 1 / brakeFactor));
+
   //Road animation
   const animate = () => {
     //If Drive is true, the position is updated
@@ -105,7 +105,7 @@ export const Road = (props: any) => {
         setBrakeFactor(1.5);
         break;
       case "snow":
-        setBrakeFactor(2);
+        setBrakeFactor(4);
         break;
       default: //If condition has an unexpected value, the code doesn't break
         break;
