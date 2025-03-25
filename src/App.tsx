@@ -17,6 +17,8 @@ const App = () => {
   const [brake, setBrake] = useState(false);
   const [speed, setSpeed] = useState(0);
   const [condition, setCondition] = useState<string | null>(null); //condition of the road
+  const [, setShowPopup] = useState(false);
+  const [showEndPopup, setShowEndPopup] = useState(false);
 
   //Change the opacity of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
@@ -35,14 +37,39 @@ const App = () => {
     opacity: condition === cond ? "1" : "0.75",
   });
 
+  //The end popup appears 0.5 seconds after the car stops
+  const handleBrakingComplete = () => {
+    setTimeout(() => {
+      setShowEndPopup(true);
+    }, 500);
+  };
+
   console.log("cond", condition);
   console.log("speed", speed);
   console.log("disabled", speed === 0 || !condition);
 
   return (
     <>
-      <CustomPopup />
+      <CustomPopup
+        //Popup that opens when the app is started
+        openOnMount={true}
+        title="Tere tulemast!"
+        message="Enne sõidu alustamist vali auto kiirus ja teeolud."
+        buttonText="Sulge"
+        onClose={() => setShowPopup(false)}
+      />
+      {showEndPopup && (
+        <CustomPopup
+          //Popup that opens when the car stops
+          title="Sõidu lõpp!"
+          message="Sinu auto peatumisteekond kestis x sekundit ja y meetrit."
+          buttonText="Algusesse"
+          isOpen={showEndPopup}
+          onClose={() => setShowEndPopup(false)}
+        />
+      )}
       <div className="mainContainer">
+        {/* Classname "modifiers" contains the speed and condition buttons */}
         <div className="modifiers">
           <div className="speedBtnFlex">
             <SpeedButton
@@ -88,6 +115,7 @@ const App = () => {
           setDrive={setDrive}
           condition={condition}
           setCondition={setCondition}
+          onBrakingComplete={handleBrakingComplete}
         />
         {drive ? (
           <BrakeButton
@@ -101,6 +129,7 @@ const App = () => {
         ) : (
           <StartButton
             name={"START"}
+            // The START button is disabled until speed and condition are chosen.
             disabled={speed === 0 || !condition}
             className={"customButton"}
             onClick={() => {

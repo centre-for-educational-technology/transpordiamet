@@ -1,29 +1,76 @@
 import React, { useState, useEffect } from "react";
 import "./popup.css";
 
-export const CustomPopup: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface PopupProps {
+  title?: string;
+  message?: string;
+  buttonText?: string;
+  onClose: () => void;
+  openOnMount?: boolean;
+  isOpen?: boolean;
+  onOpenChange?: (isOpen: boolean) => void;
+}
 
-  // Open the popup when the component mounts
+export const CustomPopup: React.FC<PopupProps> = ({
+  title,
+  message,
+  buttonText,
+  onClose,
+  openOnMount = false,
+  isOpen: propsIsOpen,
+  onOpenChange,
+}) => {
+  const [isOpenInternal, setIsOpenInternal] = useState(openOnMount);
+
+  // Cheks if popup is open
+  const isControlled = propsIsOpen !== undefined;
+  const isOpenState = isControlled ? propsIsOpen : isOpenInternal;
+
   useEffect(() => {
-    setIsOpen(true);
-  }, []);
+    if(openOnMount) {
+      if(!isControlled) {
+        setIsOpenInternal(true);
+      } else if (onOpenChange) {
+        onOpenChange(true);
+      }
+    }
+  }, [openOnMount, isControlled, onOpenChange]);
 
   const closePopup = () => {
-    setIsOpen(false);
+    if(!isControlled) {
+      setIsOpenInternal(false);
+    }
+    if(onOpenChange) {
+      onOpenChange(false);
+    }
+    if(onClose) {
+      onClose();
+    }
   };
+
+  if (!isOpenState) return null;
 
   return (
     <div>
-      {isOpen && (
+      {isOpenState && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <h2>Tere tulemast!</h2>
-            <p>Enne startimist vali auto sõidukiirus ja ilmaolu.</p>
-            <button onClick={closePopup}>Sulge</button>
+            {title && <h2>{title}</h2>}
+            {message && <p>{message}</p>}
+            <button onClick={closePopup}>{buttonText}</button>
           </div>
         </div>
       )}
     </div>
   );
 };
+
+export const usePopup = (initalState = false) => {
+  const [isOpen, setIsOpen] = useState(initalState);
+
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
+  const toggle = () => setIsOpen((prev) => !prev);
+
+  return { isOpen, open, close, toggle };
+}

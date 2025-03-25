@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 //import { ConditionButton } from "./buttons/condition/conditionBtn";
 
 export const Road = (props: any) => {
-  const { drive, brake, speed: startSpeed, condition } = props;
+  const { drive, brake, speed: startSpeed, condition, onBrakingComplete } = props;
 
   const [speed, setSpeed] = useState(0);
   const [position, setPosition] = useState(0);
@@ -25,7 +25,7 @@ export const Road = (props: any) => {
     }
   };
 
-  //Change the color of the road bewteen the lines accordin to the chosen condition
+  //Change the color of the road bewteen the lines according to the chosen condition
   const getLineStyle = () => {
     const lineWidth = 80;
     const gapWidth = 20;
@@ -74,17 +74,22 @@ export const Road = (props: any) => {
     }
   };
 
-
   //Road animation
   const animate = () => {
-    //If Drive is true, the position is updated
+    //If Drive is true, the position is updated according to the speed
     if (drive) {
       setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
     }
-    //If Brake is true, the speed is reduced
+    //If Brake is true, the speed is reduced according to the brake factor
     if (brake) {
       setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
-      setSpeed((prev) => Math.max(0, prev - 0.5 / brakeFactor));
+      const newSpeed = Math.max(0, speed - 0.5 / brakeFactor);
+      setSpeed(newSpeed);
+      
+      // When speed reaches 0, call the braking complete callback
+      if (newSpeed === 0 && speed !== 0) { // Only trigger when we just reached 0
+        onBrakingComplete?.();
+      }
     }
     //Recursively calling Animate to create a loop
     requestRef.current = requestAnimationFrame(animate);
