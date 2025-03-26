@@ -1,8 +1,7 @@
 .customButton {
-display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 0px;
   height: 90px;
   width: 90px;

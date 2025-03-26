@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Tooltip } from "react-tooltip";
 import "./App.css";
 
 import DryIcon from "./assets/dry.svg";
@@ -44,10 +45,38 @@ const App = () => {
     }, 500);
   };
 
-  console.log("cond", condition);
-  console.log("speed", speed);
-  console.log("disabled", speed === 0 || !condition);
+  // Conditions' estonian translations for classname "infoContainer"
+  const conditionESTMap: { [key: string]: string } = {
+    dry: "kuiv",
+    rain: "märg",
+    snow: "lumine",
+  };
+  const conditionEST = condition ? conditionESTMap[condition] : " ";
 
+  // Road friction coefficients for different conditions for calculating braking distance
+  const roadFriction: { [key: string]: number } = {
+    dry: 0.7,
+    rain: 0.4,
+    snow: 0.2,
+  };
+
+  // Converting km/h to m/s
+  const speedInMetersPerSecond = (speed * 5) / 18;
+
+  // Calculating the car's braking distance according to chosen speed and road condition
+  const calculateBrakingDistance = () => {
+    const brakingDistance =
+      Math.pow(speedInMetersPerSecond, 2) /
+      (2 * (roadFriction[condition || "dry"] || 0.7) * 9.8);
+    return brakingDistance.toFixed(0);
+  };
+
+  // Calculating the car's stopping distance by adding a 1 second reaction time to the braking distance
+  const calculateStoppingDistance = () => {
+    const stoppingDistance =
+      parseFloat(calculateBrakingDistance()) + speedInMetersPerSecond;
+    return stoppingDistance.toFixed(0);
+  };
   return (
     <>
       <CustomPopup
@@ -62,7 +91,7 @@ const App = () => {
         <CustomPopup
           //Popup that opens when the car stops
           title="Sõidu lõpp!"
-          message="Sinu auto peatumisteekond kestis x sekundit ja y meetrit."
+          message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.`}
           buttonText="Algusesse"
           isOpen={showEndPopup}
           onClose={() => setShowEndPopup(false)}
@@ -127,17 +156,40 @@ const App = () => {
             }}
           />
         ) : (
-          <StartButton
-            name={"START"}
-            // The START button is disabled until speed and condition are chosen.
-            disabled={speed === 0 || !condition}
-            className={"customButton"}
-            onClick={() => {
-              setDrive(true);
-              setBrake(false);
-            }}
-          />
+          <div>
+            {/* Tooltip */}
+            <span
+              {...(speed === 0 || !condition
+                ? {
+                    // Show tooltip if START button disabled
+                    "data-tooltip-id": "startBtnTooltip",
+                    "data-tooltip-content":
+                      speed === 0
+                        ? "Vali kiirus"
+                        : "Vali teeolu",
+                  }
+                : {})}
+              style={{ display: "inline-block"}}
+            >
+              <StartButton
+                name={"START"}
+                disabled={speed === 0 || !condition}
+                className={`customButton ${speed === 0 || !condition ? "disabled" : ""}`}
+                onClick={() => {
+                  setDrive(true);
+                  setBrake(false);
+                }}
+              />
+            </span>
+
+            <Tooltip id="startBtnTooltip" place="top" style={{backgroundColor: "white", color: "black"}} />
+          </div>
         )}
+
+        <div className="infoContainer">
+          <p>Auto kiirus: {speed} km/h</p>
+          <p>Teeolu: {conditionEST}</p>
+        </div>
       </div>
     </>
   );
