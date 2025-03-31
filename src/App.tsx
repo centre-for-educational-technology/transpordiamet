@@ -60,6 +60,13 @@ const App = () => {
     snow: 0.2,
   };
 
+  // Slowdown of the car according to condition
+  const slowdown: { [key: string]: number } = {
+    dry: -9,
+    rain: -6,
+    snow: -3,
+  };
+
   // Converting km/h to m/s
   const speedInMetersPerSecond = (speed * 5) / 18;
 
@@ -77,6 +84,14 @@ const App = () => {
       parseFloat(calculateBrakingDistance()) + speedInMetersPerSecond;
     return stoppingDistance.toFixed(0);
   };
+
+  // Calculating the car's stopping time according to chosen speed and road condition
+  const calculateStoppingTime = () => {
+    const stoppingTime =
+      0 - speedInMetersPerSecond / slowdown[condition || "dry"];
+    return stoppingTime.toFixed(0);
+  };
+
   return (
     <>
       <CustomPopup
@@ -91,7 +106,7 @@ const App = () => {
         <CustomPopup
           //Popup that opens when the car stops
           title="Sõidu lõpp!"
-          message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.`}
+          message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.<br /> Peale 1 sekundi reaktsiooniaega kulus autol peatumiseks ${calculateStoppingTime()} ${calculateStoppingTime() === "1" ? "sekund" : "sekundit"}.`}
           buttonText="Algusesse"
           isOpen={showEndPopup}
           onClose={() => setShowEndPopup(false)}
@@ -105,6 +120,16 @@ const App = () => {
               name={"30"}
               style={speedBtnStyle(30)}
               onClick={() => handleSpeedChange(30)}
+            ></SpeedButton>
+            <SpeedButton
+              name={"50"}
+              style={speedBtnStyle(50)}
+              onClick={() => handleSpeedChange(50)}
+            ></SpeedButton>
+            <SpeedButton
+              name={"90"}
+              style={speedBtnStyle(90)}
+              onClick={() => handleSpeedChange(90)}
             ></SpeedButton>
             <SpeedButton
               name={"100"}
@@ -164,12 +189,10 @@ const App = () => {
                     // Show tooltip if START button disabled
                     "data-tooltip-id": "startBtnTooltip",
                     "data-tooltip-content":
-                      speed === 0
-                        ? "Vali kiirus"
-                        : "Vali teeolu",
+                      speed === 0 ? "Vali kiirus" : "Vali teeolu",
                   }
                 : {})}
-              style={{ display: "inline-block"}}
+              style={{ display: "inline-block" }}
             >
               <StartButton
                 name={"START"}
@@ -182,7 +205,11 @@ const App = () => {
               />
             </span>
 
-            <Tooltip id="startBtnTooltip" place="top" style={{backgroundColor: "white", color: "black"}} />
+            <Tooltip
+              id="startBtnTooltip"
+              place="top"
+              style={{ backgroundColor: "white", color: "black" }}
+            />
           </div>
         )}
 

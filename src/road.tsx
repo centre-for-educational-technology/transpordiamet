@@ -104,13 +104,13 @@ export const Road = (props: any) => {
   useEffect(() => {
     switch (condition) {
       case "dry":
-        setBrakeFactor(1);
+        setBrakeFactor(2);
         break;
       case "rain":
-        setBrakeFactor(1.5);
+        setBrakeFactor(3.5);
         break;
       case "snow":
-        setBrakeFactor(4);
+        setBrakeFactor(6.5);
         break;
       default: //If condition has an unexpected value, the code doesn't break
         break;

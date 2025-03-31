@@ -56,7 +56,9 @@ export const CustomPopup: React.FC<PopupProps> = ({
         <div className="popup-overlay">
           <div className="popup-content">
             {title && <h2>{title}</h2>}
-            {message && <p>{message}</p>}
+            {message && (
+              <p dangerouslySetInnerHTML={{ __html: message }}></p>
+            )}
             <button onClick={closePopup}>{buttonText}</button>
           </div>
         </div>
