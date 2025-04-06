@@ -18,8 +18,14 @@ const App = () => {
   const [brake, setBrake] = useState(false);
   const [speed, setSpeed] = useState(0);
   const [condition, setCondition] = useState<string | null>(null); //condition of the road
-  const [, setShowPopup] = useState(false);
   const [showEndPopup, setShowEndPopup] = useState(false);
+  const [key, setKey] = useState(0);
+
+  const reset = () => {
+    setShowEndPopup(false);
+    setBrake(false);
+    setKey((prevKey) => prevKey + 1);
+  }
 
   //Change the opacity of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
@@ -100,7 +106,7 @@ const App = () => {
         title="Tere tulemast!"
         message="Enne sõidu alustamist vali auto kiirus ja teeolud."
         buttonText="Sulge"
-        onClose={() => setShowPopup(false)}
+
       />
       {showEndPopup && (
         <CustomPopup
@@ -109,7 +115,7 @@ const App = () => {
           message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.<br /> Peale 1 sekundi reaktsiooniaega kulus autol peatumiseks ${calculateStoppingTime()} ${calculateStoppingTime() === "1" ? "sekund" : "sekundit"}.`}
           buttonText="Algusesse"
           isOpen={showEndPopup}
-          onClose={() => setShowEndPopup(false)}
+          onClose={() => reset()}
         />
       )}
       <div className="mainContainer">
@@ -162,6 +168,7 @@ const App = () => {
           </div>
         </div>
         <Road
+          key={key}
           drive={drive}
           speed={speed}
           brake={brake}

@@ -5,7 +5,7 @@ interface PopupProps {
   title?: string;
   message?: string;
   buttonText?: string;
-  onClose: () => void;
+  onClose?: () => void;
   openOnMount?: boolean;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
