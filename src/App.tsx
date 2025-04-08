@@ -25,7 +25,7 @@ const App = () => {
     setShowEndPopup(false);
     setBrake(false);
     setKey((prevKey) => prevKey + 1);
-  }
+  };
 
   //Change the opacity of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
@@ -106,7 +106,6 @@ const App = () => {
         title="Tere tulemast!"
         message="Enne sõidu alustamist vali auto kiirus ja teeolud."
         buttonText="Sulge"
-
       />
       {showEndPopup && (
         <CustomPopup
