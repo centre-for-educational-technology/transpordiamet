@@ -10,13 +10,13 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "motion": "^12.4.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-scripts": "^5.0.1",
     "react-tooltip": "^5.28.0",
     "reactjs-popup": "^2.0.6"
   },
