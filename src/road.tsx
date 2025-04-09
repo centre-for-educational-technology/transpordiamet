@@ -1,14 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import "./road.css";
 import { motion } from "motion/react";
+import TireIcon from "./assets/tire.svg";
 //import { ConditionButton } from "./buttons/condition/conditionBtn";
 
 export const Road = (props: any) => {
-  const { drive, brake, speed: startSpeed, condition, onBrakingComplete } = props;
+  const {
+    drive,
+    brake,
+    speed: startSpeed,
+    condition,
+    onBrakingComplete,
+  } = props;
 
   const [speed, setSpeed] = useState(0);
   const [position, setPosition] = useState(0);
-  const [brakeFactor, setBrakeFactor] = useState(1);
+  const [brakeFactor, setBrakeFactor] = useState(1); 
+  const [rotation, setRotation] = useState(0); //Rotaion of the tire
   const requestRef = useRef(0);
 
   //Change the color of the road according to the chosen condition of the road
@@ -79,15 +87,19 @@ export const Road = (props: any) => {
     //If Drive is true, the position is updated according to the speed
     if (drive) {
       setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
+      setRotation((prev) => prev + speed / 10); // Update rotation based on speed
     }
     //If Brake is true, the speed is reduced according to the brake factor
     if (brake) {
       setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
       const newSpeed = Math.max(0, speed - 0.5 / brakeFactor);
       setSpeed(newSpeed);
-      
+
+      setRotation((prev) => prev + newSpeed / 10); // Update rotation based on speed
+
       // When speed reaches 0, call the braking complete callback
-      if (newSpeed === 0 && speed !== 0) { // Only trigger when we just reached 0
+      if (newSpeed === 0 && speed !== 0) {
+        // Only trigger when we just reached 0
         onBrakingComplete?.();
       }
     }
@@ -127,6 +139,7 @@ export const Road = (props: any) => {
 
   return (
     <div className="roadBody">
+      {/* The road is animated by changing the position of the lines.  */} 
       <div key={"road"} className={`road `} style={getRoadStyle()}>
         <motion.div
           animate={{ x: -position }}
@@ -134,6 +147,15 @@ export const Road = (props: any) => {
           className="lines"
           style={getLineStyle()}
         ></motion.div>
+      </div>
+      {/* The tire icon rotation animation according to the chosen speed.  */}
+      <div key={"tire"} className={`tireIcon`}>
+        <motion.img
+          src={TireIcon}
+          style={{ width: "60px", height: "60px" }}
+          animate={{ rotate: rotation }} //The tire animation is rotation
+          transition={{ ease: "linear", duration: 0.1 }}
+        />
       </div>
     </div>
   );

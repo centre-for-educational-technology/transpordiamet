@@ -6,6 +6,9 @@ import DryIcon from "./assets/dry.svg";
 import RainIcon from "./assets/rain.svg";
 import SnowIcon from "./assets/snow.svg";
 
+import CarIcon from "./assets/car.svg";
+//import TireIcon from "./assets/tire.svg";
+
 import { StartButton } from "./buttons/start/startBtn";
 import { Road } from "./road";
 import { BrakeButton } from "./buttons/brake/brakeBtn";
@@ -117,6 +120,15 @@ const App = () => {
           onClose={() => reset()}
         />
       )}
+      <div className="carIconContainer">
+        <img
+          src={CarIcon}
+          alt="Car"
+          className="carIcon"
+          style={{ width: "550px", height: "420px" }}
+        />
+        {/* <img src={TireIcon} alt="Tire" className="tireIcon" style={{ width: "60px", height: "60px" }} /> */}
+      </div>
       <div className="mainContainer">
         {/* Classname "modifiers" contains the speed and condition buttons */}
         <div className="modifiers">
@@ -214,6 +226,11 @@ const App = () => {
             <Tooltip
               id="startBtnTooltip"
               place="top"
+              style={{ backgroundColor: "white", color: "black" }}
+            />
+            <Tooltip
+              id="dryTooltip"
+              place="bottom"
               style={{ backgroundColor: "white", color: "black" }}
             />
           </div>
