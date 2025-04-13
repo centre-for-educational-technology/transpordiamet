@@ -6,16 +6,17 @@ interface ButtonProps {
   name: string;
   className: string;
   onClick: any;
+  disabled?: boolean;
 }
 
-export const BrakeButton: React.FC<ButtonProps> = ({ name, onClick }) => {
+export const BrakeButton: React.FC<ButtonProps> = ({ name, onClick, disabled }) => {
   return (
     <AnimatePresence>
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         onClick={onClick}
-        className="brakeButton"
+        className={`brakeButton ${disabled ? "disabled" : ""}`}
       >
         {name}
       </motion.div>

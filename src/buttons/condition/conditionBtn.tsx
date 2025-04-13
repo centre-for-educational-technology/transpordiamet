@@ -1,6 +1,8 @@
 import "./conditionBtn.css";
 import React from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { Tooltip } from "react-tooltip";
+import { conditionMapper } from "../../utils/conditionMapper";
 
 interface ButtonProps {
   icon: string;
@@ -25,13 +27,20 @@ export const ConditionButton: React.FC<ButtonProps> = ({
         style={style}
         className="conditionButton"
         whileTap={{ scale: 0.95 }} //button clicking animation
+        data-tooltip-id="conditionTooltip"
+        data-tooltip-content={conditionMapper(condition)}
+        data-tooltip-place="top"
       >
         <img
-        src={icon}
-        alt={condition}
-        style={{ width: "90px", height: "90px" }}
-      />
+          src={icon}
+          alt={condition}
+          style={{ width: "90px", height: "90px" }}
+        />
       </motion.div>
+      <Tooltip
+        id="conditionTooltip"
+        style={{ backgroundColor: "white", color: "black" }}
+      />
     </AnimatePresence>
   );
 };

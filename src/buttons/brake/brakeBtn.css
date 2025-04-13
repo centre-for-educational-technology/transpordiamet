@@ -17,3 +17,14 @@
   .brakeButton:hover {
     background-color: #e974c6; 
   }
+  .brakeButton.disabled{
+    background-color: dimgrey;
+    color: linen;
+    opacity: 1;
+    cursor: default;
+  }
+  
+  .brakeButton.disabled:hover{
+    background-color: dimgrey;
+  }
+  

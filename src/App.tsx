@@ -6,15 +6,13 @@ import DryIcon from "./assets/dry.svg";
 import RainIcon from "./assets/rain.svg";
 import SnowIcon from "./assets/snow.svg";
 
-import CarIcon from "./assets/car.svg";
-//import TireIcon from "./assets/tire.svg";
-
 import { StartButton } from "./buttons/start/startBtn";
 import { Road } from "./road";
 import { BrakeButton } from "./buttons/brake/brakeBtn";
 import { SpeedButton } from "./buttons/speed/speedBtn";
 import { ConditionButton } from "./buttons/condition/conditionBtn";
 import { CustomPopup } from "./popup";
+import { conditionMapper } from "./utils/conditionMapper";
 
 const App = () => {
   const [drive, setDrive] = useState(false);
@@ -25,6 +23,7 @@ const App = () => {
   const [key, setKey] = useState(0);
 
   const reset = () => {
+    setDrive(false);
     setShowEndPopup(false);
     setBrake(false);
     setKey((prevKey) => prevKey + 1);
@@ -54,13 +53,8 @@ const App = () => {
     }, 500);
   };
 
-  // Conditions' estonian translations for classname "infoContainer"
-  const conditionESTMap: { [key: string]: string } = {
-    dry: "kuiv",
-    rain: "märg",
-    snow: "lumine",
-  };
-  const conditionEST = condition ? conditionESTMap[condition] : " ";
+ 
+  const conditionEST = conditionMapper(condition || ""); //Condition in Estonian
 
   // Road friction coefficients for different conditions for calculating braking distance
   const roadFriction: { [key: string]: number } = {
@@ -120,15 +114,7 @@ const App = () => {
           onClose={() => reset()}
         />
       )}
-      <div className="carIconContainer">
-        <img
-          src={CarIcon}
-          alt="Car"
-          className="carIcon"
-          style={{ width: "550px", height: "420px" }}
-        />
-        {/* <img src={TireIcon} alt="Tire" className="tireIcon" style={{ width: "60px", height: "60px" }} /> */}
-      </div>
+
       <div className="mainContainer">
         {/* Classname "modifiers" contains the speed and condition buttons */}
         <div className="modifiers">
@@ -193,9 +179,9 @@ const App = () => {
           <BrakeButton
             name={"STOPP"}
             className={"customButton"}
+            disabled={brake}
             onClick={() => {
               setBrake(true);
-              setDrive(false);
             }}
           />
         ) : (
@@ -226,11 +212,6 @@ const App = () => {
             <Tooltip
               id="startBtnTooltip"
               place="top"
-              style={{ backgroundColor: "white", color: "black" }}
-            />
-            <Tooltip
-              id="dryTooltip"
-              place="bottom"
               style={{ backgroundColor: "white", color: "black" }}
             />
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./road.css";
 import { motion } from "motion/react";
 import TireIcon from "./assets/tire.svg";
+import CarIcon from "./assets/car.svg";
 //import { ConditionButton } from "./buttons/condition/conditionBtn";
 
 export const Road = (props: any) => {
@@ -15,7 +16,7 @@ export const Road = (props: any) => {
 
   const [speed, setSpeed] = useState(0);
   const [position, setPosition] = useState(0);
-  const [brakeFactor, setBrakeFactor] = useState(1); 
+  const [brakeFactor, setBrakeFactor] = useState(1);
   const [rotation, setRotation] = useState(0); //Rotaion of the tire
   const requestRef = useRef(0);
 
@@ -139,7 +140,7 @@ export const Road = (props: any) => {
 
   return (
     <div className="roadBody">
-      {/* The road is animated by changing the position of the lines.  */} 
+      {/* The road is animated by changing the position of the lines.  */}
       <div key={"road"} className={`road `} style={getRoadStyle()}>
         <motion.div
           animate={{ x: -position }}
@@ -147,16 +148,31 @@ export const Road = (props: any) => {
           className="lines"
           style={getLineStyle()}
         ></motion.div>
+       
       </div>
       {/* The tire icon rotation animation according to the chosen speed.  */}
-      <div key={"tire"} className={`tireIcon`}>
-        <motion.img
-          src={TireIcon}
-          style={{ width: "60px", height: "60px" }}
-          animate={{ rotate: rotation }} //The tire animation is rotation
-          transition={{ ease: "linear", duration: 0.1 }}
-        />
-      </div>
+      <div className="carIconContainer">
+          <div key={"tire"} className={`tireIcon`}>
+            <motion.img
+              src={TireIcon}
+              style={{ width: "60px", height: "60px" }}
+              animate={{ rotate: rotation }} //The tire animation is rotation
+              transition={{ ease: "linear", duration: 0.1 }}
+            />
+            <motion.img
+              src={TireIcon}
+              style={{ width: "60px", height: "60px" }}
+              animate={{ rotate: rotation }} //The tire animation is rotation
+              transition={{ ease: "linear", duration: 0.1 }}
+            />
+          </div>
+          <img
+            src={CarIcon}
+            alt="Car"
+            className="carIcon"
+            style={{ width: "400px" }}
+          />
+        </div>
     </div>
   );
 };

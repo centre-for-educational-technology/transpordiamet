@@ -4,6 +4,8 @@
   width: 100%;
   height: 220px;
   align-items: end;
+  flex-direction: row;
+  flex-wrap: wrap;     
 }
 /*Drawing a road on the screen*/
 .road {
@@ -23,4 +25,24 @@
   left: 0;
   width: 999999999vw; 
   height: 7px;
+}
+
+.carIconContainer{
+  position: relative;
+  align-self: flex-start; /* Align this child to the start vertically */
+  margin-left:10%;
+  top: 30%;
+  margin-right: auto;
+}
+
+.tireIcon {
+  position: absolute;
+  top: 57%; /* Align the tire to the top of the car */
+  left: 15.25%; /* Center the tire horizontally over the car */
+  z-index: 1;
+  gap: 40px;
+  display: flex; /* Use flexbox to arrange the wheels */
+  flex-direction: row; /* Arrange the wheels horizontally */
+  justify-content: space-between; /* Add space between the wheels */
+  gap: 173px; /* Set the gap between the wheels */
 }
