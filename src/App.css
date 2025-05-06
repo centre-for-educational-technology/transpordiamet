@@ -30,3 +30,29 @@
   bottom: 20px;
 }
 
+/* When phone is in portrait mode, display a message that says to rotate into landscape mode*/
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+  .rotate-message {
+    display: block;
+    position: fixed;
+    text-align: center;
+    padding-top: 100%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(#c5eafc, #66bde6);
+    color: rgb(85, 85, 85);
+    z-index: 9999;
+  }
+  /* Hide the rest of the components */
+  .mainContainer,
+  .roadBody {
+    display: none; 
+  }
+}
+
+/* Hide the message if in landscape mode or larger screens */
+@media only screen and (min-width: 768px), (orientation: landscape) {
+  .rotate-message {
+    display: none;
+  }
+}

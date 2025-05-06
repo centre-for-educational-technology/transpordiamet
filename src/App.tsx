@@ -53,7 +53,6 @@ const App = () => {
     }, 500);
   };
 
- 
   const conditionEST = conditionMapper(condition || ""); //Condition in Estonian
 
   // Road friction coefficients for different conditions for calculating braking distance
@@ -220,6 +219,13 @@ const App = () => {
         <div className="infoContainer">
           <p>Auto kiirus: {speed} km/h</p>
           <p>Teeolu: {conditionEST}</p>
+        </div>
+      </div>
+      
+      {/* Message that shows in portrait mode */}
+      <div>
+        <div className="rotate-message">
+          <h2>Keerake seade külgvaatesse!</h2>
         </div>
       </div>
     </>
