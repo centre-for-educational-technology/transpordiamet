@@ -98,6 +98,7 @@ const App = () => {
     <>
       <CustomPopup
         //Popup that opens when the app is started
+        className="welcomePopup"
         openOnMount={true}
         title="Tere tulemast!"
         message="Enne sõidu alustamist vali auto kiirus ja teeolud."
@@ -106,6 +107,7 @@ const App = () => {
       {showEndPopup && (
         <CustomPopup
           //Popup that opens when the car stops
+          className="endPopup" 
           title="Sõidu lõpp!"
           message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.<br /> Peale 1 sekundi reaktsiooniaega kulus autol peatumiseks ${calculateStoppingTime()} ${calculateStoppingTime() === "1" ? "sekund" : "sekundit"}.`}
           buttonText="Algusesse"

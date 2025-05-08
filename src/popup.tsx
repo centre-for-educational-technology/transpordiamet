@@ -9,6 +9,7 @@ interface PopupProps {
   openOnMount?: boolean;
   isOpen?: boolean;
   onOpenChange?: (isOpen: boolean) => void;
+  className?: string;
 }
 
 export const CustomPopup: React.FC<PopupProps> = ({
@@ -19,6 +20,7 @@ export const CustomPopup: React.FC<PopupProps> = ({
   openOnMount = false,
   isOpen: propsIsOpen,
   onOpenChange,
+  className
 }) => {
   const [isOpenInternal, setIsOpenInternal] = useState(openOnMount);
 
@@ -53,7 +55,7 @@ export const CustomPopup: React.FC<PopupProps> = ({
   return (
     <div>
       {isOpenState && (
-        <div className="popup-overlay">
+        <div className={`popup-overlay ${className}`}> 
           <div className="popup-content">
             {title && <h2>{title}</h2>}
             {message && (
