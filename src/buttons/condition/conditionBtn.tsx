@@ -30,6 +30,7 @@ export const ConditionButton: React.FC<ButtonProps> = ({
         data-tooltip-id="conditionTooltip"
         data-tooltip-content={conditionMapper(condition)}
         data-tooltip-place="top"
+        key={`condition-${condition}`}
       >
         <img
           src={icon}

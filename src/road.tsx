@@ -85,26 +85,29 @@ export const Road = (props: any) => {
 
   //Road animation
   const animate = () => {
-    //If Drive is true, the position is updated according to the speed
-    if (drive) {
-      setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
-      setRotation((prev) => prev + speed / 10); // Update rotation based on speed
+    if (!drive) {
+      // Stop the animation if drive is not true
+      cancelAnimationFrame(requestRef.current);
+      return;
     }
-    //If Brake is true, the speed is reduced according to the brake factor
+    let currentSpeed = speed;
+  
+    // If Brake is true, reduce the speed before updating position and rotation
     if (brake) {
-      setPosition((prev) => prev + ((speed / 5) % window.innerWidth));
-      const newSpeed = Math.max(0, speed - 0.5 / brakeFactor);
-      setSpeed(newSpeed);
-
-      setRotation((prev) => prev + newSpeed / 10); // Update rotation based on speed
-
+      currentSpeed = Math.max(0, speed - 0.5 / brakeFactor);
+      setSpeed(currentSpeed);
+  
       // When speed reaches 0, call the braking complete callback
-      if (newSpeed === 0 && speed !== 0) {
-        // Only trigger when we just reached 0
+      if (currentSpeed === 0 && speed !== 0) {
         onBrakingComplete?.();
       }
     }
-    //Recursively calling Animate to create a loop
+  
+    // Update position and rotation based on the current speed
+    setPosition((prev) => prev + ((currentSpeed / 5) % window.innerWidth));
+    setRotation((prev) => prev + currentSpeed / 10);
+  
+    // Recursively calling Animate to create a loop
     requestRef.current = requestAnimationFrame(animate);
   };
 
