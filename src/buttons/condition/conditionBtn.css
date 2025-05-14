@@ -5,7 +5,6 @@
     border-radius: 50%;    
 }
 
-/*Condition button position using the div class in App.tsx*/
 .conditionBtnFlex{
     display: flex;
     flex-direction: row;

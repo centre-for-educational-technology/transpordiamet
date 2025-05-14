@@ -28,6 +28,7 @@ export const CustomPopup: React.FC<PopupProps> = ({
   const isControlled = propsIsOpen !== undefined;
   const isOpenState = isControlled ? propsIsOpen : isOpenInternal;
 
+  // Open the popup depening on whether it is controlled or not
   useEffect(() => {
     if(openOnMount) {
       if(!isControlled) {
@@ -38,6 +39,7 @@ export const CustomPopup: React.FC<PopupProps> = ({
     }
   }, [openOnMount, isControlled, onOpenChange]);
 
+  // Close the popup when the button is clicked
   const closePopup = () => {
     if(!isControlled) {
       setIsOpenInternal(false);

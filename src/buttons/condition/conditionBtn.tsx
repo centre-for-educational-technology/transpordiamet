@@ -22,13 +22,13 @@ export const ConditionButton: React.FC<ButtonProps> = ({
     <AnimatePresence>
       <motion.div
         initial={{ scale: 0 }}
-        animate={{ scale: 1 }} //animation when button appears on the screen
+        animate={{ scale: 1 }} // Animation when button appears on the screen
         onClick={onClick}
         style={style}
         className="conditionButton"
-        whileTap={{ scale: 0.95 }} //button clicking animation
+        whileTap={{ scale: 0.95 }} // Button clicking animation
         data-tooltip-id="conditionTooltip"
-        data-tooltip-content={conditionMapper(condition)}
+        data-tooltip-content={conditionMapper(condition)} // conditionMapper inlcudes the condition's estonian names
         data-tooltip-place="top"
         key={`condition-${condition}`}
       >

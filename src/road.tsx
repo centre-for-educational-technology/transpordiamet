@@ -3,7 +3,6 @@ import "./road.css";
 import { motion } from "motion/react";
 import TireIcon from "./assets/tire.svg";
 import CarIcon from "./assets/car.svg";
-//import { ConditionButton } from "./buttons/condition/conditionBtn";
 
 export const Road = (props: any) => {
   const {
@@ -17,10 +16,10 @@ export const Road = (props: any) => {
   const [speed, setSpeed] = useState(0);
   const [position, setPosition] = useState(0);
   const [brakeFactor, setBrakeFactor] = useState(1);
-  const [rotation, setRotation] = useState(0); //Rotaion of the tire
+  const [rotation, setRotation] = useState(0); // Rotaion of the tire
   const requestRef = useRef(0);
 
-  //Change the color of the road according to the chosen condition of the road
+  // Change the color of the road according to the chosen condition of the road
   const getRoadStyle = () => {
     switch (condition) {
       case "dry":
@@ -34,7 +33,7 @@ export const Road = (props: any) => {
     }
   };
 
-  //Change the color of the road bewteen the lines according to the chosen condition
+  // Change the color of the road bewteen the lines according to the chosen condition
   const getLineStyle = () => {
     const lineWidth = 80;
     const gapWidth = 20;
@@ -83,7 +82,7 @@ export const Road = (props: any) => {
     }
   };
 
-  //Road animation
+  // Road animation
   const animate = () => {
     if (!drive) {
       // Stop the animation if drive is not true
@@ -111,12 +110,12 @@ export const Road = (props: any) => {
     requestRef.current = requestAnimationFrame(animate);
   };
 
-  //Speed of the car is updated when startSpeed changes
+  // Speed of the car is updated when startSpeed changes
   useEffect(() => {
     setSpeed(startSpeed);
   }, [startSpeed]);
 
-  //Braking is updated according to the road condition. Whenever the condition changes, useEffect runs.
+  // Braking is updated according to the road condition. Whenever the condition changes, useEffect runs.
   useEffect(() => {
     switch (condition) {
       case "dry":
@@ -128,16 +127,16 @@ export const Road = (props: any) => {
       case "snow":
         setBrakeFactor(6.5);
         break;
-      default: //If condition has an unexpected value, the code doesn't break
+      default: // If condition has an unexpected value, the code doesn't break
         break;
     }
   }, [condition]);
 
-  //Road animation loop starts when the car is moving or braking
+  // Road animation loop starts when the car is moving or braking
   useEffect(() => {
     if (speed > 0 || brake) {
       requestRef.current = requestAnimationFrame(animate);
-    } //Otherwise the loop is stopped (or when dependencies change)
+    } // Otherwise the loop is stopped (or when dependencies change)
     return () => cancelAnimationFrame(requestRef.current);
   }, [speed, condition, drive, brake]);
 

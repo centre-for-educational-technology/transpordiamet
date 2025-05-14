@@ -19,13 +19,14 @@ const App = () => {
   const [drive, setDrive] = useState(false);
   const [brake, setBrake] = useState(false);
   const [speed, setSpeed] = useState(0);
-  const [condition, setCondition] = useState<string | null>(null); //condition of the road
-  const [showEndPopup, setShowEndPopup] = useState(false);
-  const [key, setKey] = useState(0);
+  const [condition, setCondition] = useState<string | null>(null); // Condition of the road
+  const [showEndPopup, setShowEndPopup] = useState(false); // Popup that opens when the car stops
+  const [key, setKey] = useState(0); // Key to force re-render of the road component
   const [isMenuOpen, setIsMenuOpen] = useState(true);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 950);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 950); // Check if the screen is mobile size
 
+  // Check if the screen is mobile size
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 950);
@@ -37,25 +38,7 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const menuElement = document.querySelector(".bm-menu");
-      if (menuElement && !menuElement.contains(event.target as Node)) {
-        setIsMenuOpen(false); // Close the menu
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
+  // Reset the state of the app after closing end popup
   const reset = () => {
     setDrive(false);
     setShowEndPopup(false);
@@ -63,31 +46,31 @@ const App = () => {
     setKey((prevKey) => prevKey + 1);
   };
 
-  //Change the opacity of chosen speed button
+  // Change the opacity of chosen speed button
   const handleSpeedChange = (newSpeed: any) => {
     setSpeed(newSpeed);
   };
-  //Change the opacity of chosen speed button
+  // Change the opacity of chosen speed button
   const speedBtnStyle = (speedNr: any) => ({
     opacity: speed === speedNr ? "1" : "0.75",
   });
-  //Change the opacity of chosen condition button
+  // Change the opacity of chosen condition button
   const handleConditionChange = (newCondition: string) => {
     setCondition(newCondition);
   };
-  //Change the opacity of chosen condition button
+  // Change the opacity of chosen condition button
   const conditionBtnStyle = (cond: string) => ({
     opacity: condition === cond ? "1" : "0.75",
   });
 
-  //The end popup appears 0.5 seconds after the car stops
+  // The end popup appears 0.5 seconds after the car stops
   const handleBrakingComplete = () => {
     setTimeout(() => {
       setShowEndPopup(true);
     }, 500);
   };
 
-  const conditionEST = conditionMapper(condition || ""); //Condition in Estonian
+  const conditionEST = conditionMapper(condition || ""); // Conditions in Estonian
 
   // Road friction coefficients for different conditions for calculating braking distance
   const roadFriction: { [key: string]: number } = {
@@ -128,12 +111,13 @@ const App = () => {
     return stoppingTime.toFixed(0);
   };
 
+  // Styles of burger menus in mobile view
   const menuStyles = {
     bmMenuWrap: {
       top: "0",
       left: "0",
-      width: "100%", // Full width for horizontal layout
-      height: "100%", // Adjust height for horizontal layout
+      width: "100%", 
+      height: "100%", 
     },
     bmMenu: {
       background: "rgba(214, 214, 214, 0.82)",
@@ -143,12 +127,12 @@ const App = () => {
       position: "fixed",
       width: "48px",
       height: "48px",
-      left: "20px", // Adjust as needed
-      top: "20px", // Adjust as needed
+      left: "20px",
+      top: "20px",
       zIndex: "9000",
     },
     bmBurgerBars: {
-      background: "black", // Change color based on menu state
+      background: "black",
     },
     bmItemList: {
       display: "flex",
@@ -160,6 +144,7 @@ const App = () => {
       display: "flex",
     },
   };
+  
   const speedButtons = () => {
     return (
       <>
@@ -218,7 +203,7 @@ const App = () => {
   return (
     <>
       <CustomPopup
-        //Popup that opens when the app is started
+        // Popup that opens when the app is started
         className="welcomePopup"
         openOnMount={true}
         title="Tere tulemast!"
@@ -227,7 +212,7 @@ const App = () => {
       />
       {showEndPopup && (
         <CustomPopup
-          //Popup that opens when the car stops
+          // Popup that opens when the car stops
           className="endPopup"
           title="Sõidu lõpp!"
           message={`Sinu auto pidurdas ${calculateBrakingDistance()} meetrit ja kogu peatumisteekond oli ${calculateStoppingDistance()} meetrit.<br /> Peale 1 sekundi reaktsiooniaega kulus autol peatumiseks ${calculateStoppingTime()} ${calculateStoppingTime() === "1" ? "sekund" : "sekundit"}.`}
@@ -239,6 +224,7 @@ const App = () => {
 
       <div className="mainContainer">
         {isMobile ? (
+          // Burger menu for mobile view
           <Menu
             noOverlay
             styles={menuStyles}
@@ -309,14 +295,14 @@ const App = () => {
             />
           </div>
         )}
-
+        {/* Says the chosen speed and condition */}
         <div className="infoContainer">
           <p>Auto kiirus: {speed} km/h</p>
           <p>Teeolu: {conditionEST}</p>
         </div>
       </div>
 
-      {/* Message that shows in portrait mode */}
+      {/* Message that shows in mobile portrait mode */}
       <div>
         <div className="rotate-message">
           <h2>Keerake seade külgvaatesse!</h2>

@@ -15,21 +15,29 @@
   margin: 20px;
 }
 
+.infoContainer p{
+  color:rgba(0, 0, 0, 0.664);
+}
 .infoContainer{
   font-weight: bold;
   font-size: 18px;
-  opacity: 0.5;
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 50px;
+  bottom: 50px;
   height: min-content;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.664);
+  border-width: 4px;
+  border-radius: 20%;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.39);
 }
 
 .bm-burger-button {
-  display: none ; /* Hide the burger button */
+  display: none ; 
 }
 .mobileMenu {
-  display: none ; /* Hide the menu */
+  display: none ; 
 }
 
 /* When phone is in portrait mode, display a message that says to rotate into landscape mode*/
@@ -45,7 +53,6 @@
     color: rgb(85, 85, 85);
     z-index: 9999;
   }
-  /* Hide the rest of the components */
   .mainContainer,
   .roadBody {
     display: none; 
@@ -73,15 +80,18 @@
   }
   .infoContainer{
     position: absolute;
-    top: 10px; 
+    top: 5px; 
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
+    border: none;
+    background-color: transparent;
+    padding: 0;
   }
   .bm-burger-button {
-    display: block; /* Ensure the burger button is visible */
+    display: block;
   }
   .mobileMenu {
-    display: block ; /* Ensure the menu is visible */
+    display: block ;
   }
 }

@@ -29,7 +29,7 @@
 
 .carIconContainer{
   position: relative;
-  align-self: flex-start; /* Align this child to the start vertically */
+  align-self: flex-start; 
   margin-left:10%;
   top: 30%;
   margin-right: auto;
@@ -37,12 +37,12 @@
 
 .tireIcon {
   position: absolute;
-  top: 57%; /* Align the tire to the top of the car */
-  left: 15.25%; /* Center the tire horizontally over the car */
+  top: 57%; 
+  left: 15.25%; 
   z-index: 1;
   gap: 40px;
-  display: flex; /* Use flexbox to arrange the wheels */
-  flex-direction: row; /* Arrange the wheels horizontally */
-  justify-content: space-between; /* Add space between the wheels */
-  gap: 173px; /* Set the gap between the wheels */
+  display: flex; 
+  flex-direction: row; 
+  justify-content: space-between; 
+  gap: 173px; /* The gap between the wheels */
 }

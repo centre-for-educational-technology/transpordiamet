@@ -4,7 +4,6 @@
   height: 90px;
   width: 90px;
   line-height: 90px;      /*so the text is in the middle of the circle (should be the same as height and width)*/
-  /*background-color: #929292; */
   color: black;
   border-radius: 50%;
   border-color: red;    
@@ -19,7 +18,6 @@
   box-shadow: 0 2px 4px rgb(34, 34, 34);
 }
 
-/*Speed button position using the div class in App.tsx*/
 .speedBtnFlex{
   display: flex;
   flex-direction: row;
